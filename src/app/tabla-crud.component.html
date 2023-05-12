@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Práctica 2</title>
+</head>
+<body>
+  <button (click)="abrirModal()">Registrar</button>
+  <!--MODAL PARA EL REGISTRO-->
+  <div class="modal" *ngIf="modalAbierto">
+    <div class="modal-contenido">
+      <h2>Registrar Nuevo Elemento</h2>
+      <form (ngSubmit)="enviarFormulario()">
+        <label for="code">Code:</label>
+        <input type="text" id="code" name="code" [(ngModel)]="nuevoItem.code" required>
+        <br>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" [(ngModel)]="nuevoItem.name" required>
+        <br>
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" [(ngModel)]="nuevoItem.description" required></textarea>
+        <br>
+        <div class="botones-modal">
+          <button type="submit">Enviar</button>
+          <button (click)="cerrarModal()">Cerrar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!--MODAL PARA LA ACTUALIZACIÓN-->
+  <div class="modal" *ngIf="modalActualizarAbierto">
+    <div>
+      <label>Code:</label>
+      <input type="text" [(ngModel)]="itemActualizacion.code">
+    </div>
+    <div>
+      <label>Name:</label>
+      <input type="text" [(ngModel)]="itemActualizacion.name">
+    </div>
+    <div>
+      <label>Description:</label>
+      <input type="text" [(ngModel)]="itemActualizacion.description">
+    </div>
+    <div>
+      <button (click)="abrirModalActualizar(item)">Actualizar</button>
+      <button (click)="cerrarModalActualizar()">Cerrar</button>
+    </div>
+  </div>
+
+
+  <div class="container">
+    <table>
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Code</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Eliminar</th>
+        <th>Actualizar</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of items">
+        <td>{{ item.id }}</td>
+        <td>{{ item.code }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.description }}</td>
+        <td><button (click)="eliminarItem(item.id)">Eliminar</button></td>
+        <td><button (click)="abrirModalActualizar(item.id)">Actualizar</button></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
